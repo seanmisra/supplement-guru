@@ -3,6 +3,7 @@ import Header from './components/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Admin from './components/Admin';
 import { useEffect, useState } from 'react';
+import Home from './components/Home'
 
 function App() {
 
@@ -79,7 +80,7 @@ function App() {
   return (
     <Router>      
       <Routes> 
-        <Route path='/' exact element={<Header/>}>
+        <Route path='/' exact element={<Home/>}>
         </Route>
 
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}
