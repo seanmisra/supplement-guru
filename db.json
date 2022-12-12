@@ -1,0 +1,38 @@
+{
+  "supplements": [
+    {
+      "id": 1,
+      "name": "Ashwagandha",
+      "description": "",
+      "tags": [
+        "stress-management",
+        "mental-clarity",
+        "reduce blood sugar",
+        "testosterone"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "B12",
+      "description": "",
+      "tags": [
+        "anemia",
+        "depression",
+        "energy",
+        "pregnancy health",
+        "brain health"
+      ]
+    },
+    {
+      "name": "Fish Oil",
+      "tags": [
+        "heart health",
+        "eye health",
+        "joints",
+        "liver health",
+        "depression"
+      ],
+      "id": 3
+    }
+  ]
+}
