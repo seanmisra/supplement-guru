@@ -3,30 +3,53 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { useState } from 'react';
 
 
-const testKeywords = ['test', 'dummy', 'example']
+const SearchBar = ({keywords}) => {
+    const [addedKeywords, setAddedKeywords] = useState([]);
+    const [keywordVal, setKeywordVal] = useState('');
 
-const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
+    const onAdd = () => {
+        if (keywordVal === '') { return; }
+        setAddedKeywords([...addedKeywords, keywordVal])
+        setKeywordVal('');
+    }
 
-const SearchBar = () => {
+    const handleDelete = (tag) => {
+        setAddedKeywords(addedKeywords.filter(kw => kw !== tag));
+        setKeywordVal(''); 
+    };
+
+    const onSubmit = () => {
+        //
+    }
+    
+
     return(
         <>
             <Autocomplete
+                value={keywordVal}
+                onChange={(event, newValue) => {
+                    setKeywordVal(newValue);
+                }}
                 disablePortal
                 id="supplement-autocomplete"
-                options ={testKeywords}
+                options ={keywords}
                 sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Keywords" />}
+                renderInput={(params) => <TextField {...params} label="Tags" />}
             />
-            
+
+            <br/>
+            <Button id="add-tag-button" variant="contained" onClick={onAdd}>Add</Button>
+            <Button id="add-submit-button" color="success" variant="contained" onClick={onSubmit}>Submit</Button>
+            <br/>
             <br/>
 
             <Stack direction="row" spacing={1}>
-                {testKeywords.map(tag => (
-                    <Chip label={tag} onDelete={handleDelete} />
+                {addedKeywords.map((tag, index) => (
+                    <Chip key={index} label={tag} onDelete={() => handleDelete(tag)} />
                 ))}      
             </Stack>
         </>

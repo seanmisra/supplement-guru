@@ -3,11 +3,11 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import Recommendation from './Recommendation';
 
-const Home = () => {
+const Home = ({keywords}) => {
     return(
         <>
             <Header></Header>
-            <SearchBar></SearchBar>
+            <SearchBar keywords={keywords}></SearchBar>
             <Recommendation></Recommendation>
         </>
     )

@@ -52,3 +52,11 @@ code {
 #admin-all-supplements-header {
   margin-bottom: 5px;
 }
+
+#add-submit-button {
+  margin-left: 5px;
+}
+
+#add-submit-button, #add-tag-button {
+  width: 90px;
+}

@@ -8,11 +8,16 @@ import Home from './components/Home'
 function App() {
 
   const [supplements, setSupplements] = useState([]);
+  const [keywords, setKeywords] = useState([]);
 
   useEffect(() => {
     const getSupplements = async () => {
       const supplementsFromServer = await fetchSupplements()
       setSupplements(supplementsFromServer);
+
+      console.log('supplementsFromServer');
+      console.log(supplementsFromServer);
+      fetchKeywords(supplementsFromServer);
     }
 
     getSupplements();
@@ -22,6 +27,7 @@ function App() {
     const res = await fetch('http://localhost:5000/supplements')
     const data = await res.json()
 
+    fetchKeywords();
     return data;
   }
 
@@ -31,6 +37,19 @@ function App() {
 
     return data;
   } 
+
+  const fetchKeywords = async (supplementsFromServer) => {
+    const keywords = [];
+    if (supplementsFromServer) {
+      supplementsFromServer.forEach(thisSupp => {
+        keywords.push(...thisSupp.tags)
+      })
+  
+      let uniqueKeywords = [...new Set(keywords)]
+      uniqueKeywords.sort()
+      setKeywords(uniqueKeywords);
+    }
+  }
 
   const addSupplement = async(supplement) => {
     const res = await fetch('http://localhost:5000/supplements', {
@@ -80,7 +99,7 @@ function App() {
   return (
     <Router>      
       <Routes> 
-        <Route path='/' exact element={<Home/>}>
+        <Route path='/' exact element={<Home keywords={keywords} />}>
         </Route>
 
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}
