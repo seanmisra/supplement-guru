@@ -60,3 +60,15 @@ code {
 #add-submit-button, #add-tag-button {
   width: 90px;
 }
+
+.search-bar-wrapper, .recommendation-wrapper {
+  margin-left: 5px;
+}
+
+.search-bar-wrapper {
+  margin-top: 40px;
+}
+
+.recommendation-wrapper {
+  margin-top: 50px;
+}

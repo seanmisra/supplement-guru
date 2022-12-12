@@ -15,9 +15,6 @@ function App() {
     const getSupplements = async () => {
       const supplementsFromServer = await fetchSupplements()
       setSupplements(supplementsFromServer);
-
-      console.log('supplementsFromServer');
-      console.log(supplementsFromServer);
       fetchKeywords(supplementsFromServer);
     }
 
@@ -28,7 +25,6 @@ function App() {
     const res = await fetch('http://localhost:5000/supplements')
     const data = await res.json()
 
-    fetchKeywords();
     return data;
   }
 
@@ -112,10 +108,19 @@ function App() {
     setRecommendationObj(recommendationObj);
   }
 
+  const addHandler = (keyword) => {
+     setKeywords(keywords.filter(kw => kw.toLowerCase() !== keyword.toLowerCase()));
+  }
+
+ const deleteHandler = (keyword) => {
+    setKeywords([...keywords, keyword].sort());
+  }
+
   return (
     <Router>      
       <Routes> 
-        <Route path='/' exact element={<Home keywords={keywords} getRecommendation={getRecommendation} recommendationObj={recommendationObj} />}>
+        <Route path='/' exact element={<Home keywords={keywords} getRecommendation={getRecommendation}
+         addHandler={addHandler} deleteHandler={deleteHandler} recommendationObj={recommendationObj} />}>
         </Route>
 
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}

@@ -7,18 +7,26 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 
 
-const SearchBar = ({keywords, onSubmit}) => {
+const SearchBar = ({keywords, onSubmit, addHandler, deleteHandler}) => {
     const [addedKeywords, setAddedKeywords] = useState([]);
     const [keywordVal, setKeywordVal] = useState('');
 
     const onAdd = () => {
         if (keywordVal === '') { return; }
+
+        if (addedKeywords.length >= 7) {
+            alert('Cannot add more than 7 keywords!');
+            return;
+        }
+
         setAddedKeywords([...addedKeywords, keywordVal])
+        addHandler(keywordVal)
         setKeywordVal('');
     }
 
     const handleDelete = (tag) => {
         setAddedKeywords(addedKeywords.filter(kw => kw !== tag));
+        deleteHandler(tag)
         setKeywordVal(''); 
     };
 
@@ -26,10 +34,9 @@ const SearchBar = ({keywords, onSubmit}) => {
         console.log('handleSubmit');
         onSubmit(addedKeywords);
     }
-    
 
     return(
-        <>
+        <div className='search-bar-wrapper'>
             <Autocomplete
                 value={keywordVal}
                 onChange={(event, newValue) => {
@@ -53,7 +60,7 @@ const SearchBar = ({keywords, onSubmit}) => {
                     <Chip key={index} label={tag} onDelete={() => handleDelete(tag)} />
                 ))}      
             </Stack>
-        </>
+        </div>
     )
 }
 

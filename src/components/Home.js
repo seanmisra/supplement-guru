@@ -3,7 +3,7 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import Recommendation from './Recommendation';
 
-const Home = ({keywords, getRecommendation, recommendationObj}) => {
+const Home = ({keywords, getRecommendation, recommendationObj, addHandler, deleteHandler}) => {
     const onSubmit = (keywords) => {
         console.log('submitted keywords');
         console.log(keywords);
@@ -13,7 +13,7 @@ const Home = ({keywords, getRecommendation, recommendationObj}) => {
     return(
         <>
             <Header></Header>
-            <SearchBar onSubmit={onSubmit} keywords={keywords}></SearchBar>
+            <SearchBar addHandler={addHandler} deleteHandler={deleteHandler} onSubmit={onSubmit} keywords={keywords}></SearchBar>
             <Recommendation recommendationObj={recommendationObj}></Recommendation>
         </>
     )
