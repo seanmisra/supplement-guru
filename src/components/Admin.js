@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const Admin = ({onAdd}) => {
+const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
     const [suppName, setSuppName] = useState('')
     const [suppDesription, setSuppDescription] = useState('')
     const [suppTags, setSuppTags] = useState('')
@@ -15,9 +15,32 @@ const Admin = ({onAdd}) => {
         return adminPassword === adminPasswordVal;
     }
 
+    const handleDelete = (e) => {
+        e.preventDefault();
+
+        if (!validatePassword()) {
+            alert('Admin Password is incorrect');
+            return;
+        }
+
+        if (!suppNameDelete) {
+            alert('Supplement Name is required');
+            return;
+        }
+
+        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name === suppNameDelete);
+ 
+        if (existingSupplement) {
+            onDelete(existingSupplement.id)
+            alert('Successfully deleted ' + suppNameDelete);
+            setSuppNameDelete('');
+        } else {
+            alert('Delete failed. Does not exist: ' + suppNameDelete);
+        }
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
-        const adminPasswordVal = process.env.REACT_APP_ADMIN_UPDATE_PASSWORD;
 
         if (!validatePassword()) {
             alert('Admin Password is incorrect');
@@ -41,14 +64,23 @@ const Admin = ({onAdd}) => {
             return;
         }
 
-
-        onAdd({ 
+        const suppObj = {
             name: suppName,
             description: setSuppDescription,
             tags: parsedTags
-        })
+        }
 
-        alert('Successfully added ' + suppName);
+        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name === suppName)
+
+        if (existingSupplement) {
+            suppObj.id = existingSupplement.id
+            onEdit(suppObj)
+            alert('Successfully EDITED ' + suppName);
+        } else {
+            onAdd(suppObj)
+            alert('Successfully ADDED ' + suppName);
+        }
+
         setSuppName('');
         setSuppDescription('');
         setSuppTags('');
@@ -63,7 +95,7 @@ const Admin = ({onAdd}) => {
             <p id="adminHomeLink"><Link to='/'>Back Home</Link></p>
 
             <label htmlFor='adminPassword'>Password: </label> 
-            <input required id='adminPassword' name='adminPassword'
+            <input type='password' required id='adminPassword' name='adminPassword'
                 value={adminPassword} onChange={(e) => setAdminPassword(e.target.value) }
                 />
             
@@ -93,12 +125,21 @@ const Admin = ({onAdd}) => {
 
             <h3>Delete Supplement</h3>
             <p>If supplement name is found, that entry will be deleted</p>
-            <form>
+            <form className='formWrapper' onSubmit={handleDelete}>
                 <label htmlFor='suppNameDelete'>Name: </label> 
                     <input id='suppNameDelete' name='suppNameDelete'
                     value={suppNameDelete} onChange={(e) => setSuppNameDelete(e.target.value) }
                     />
+                <br/>
+                <button>Submit</button>
             </form>
+
+            <h3>All Supplements ({allSupplements.length})</h3>
+            <div>
+            {allSupplements.map(thisSupp => (
+                <p>{thisSupp.name}</p>
+            ))}
+            </div>
         </div>
     )
 }

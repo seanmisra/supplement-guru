@@ -45,6 +45,8 @@ function App() {
   }
 
   const editSupplement = async(supplement) => {
+    console.log('supplement');
+    console.log(supplement);
     // update in memory
     const res = await fetch(`http://localhost:5000/supplements/${supplement.id}`, {
       method: 'PUT',
@@ -59,9 +61,19 @@ function App() {
     // update locally
     setSupplements(
       supplements.map((thisSupp) => 
-        thisSupp.id === supplement.id ? supplement : this.supp
+        thisSupp.id === supplement.id ? supplement : thisSupp
       )
     )
+  }
+
+  const deleteTask = async (id) => {
+    console.log('deleteTask');
+    console.log(id);
+    await fetch(`http://localhost:5000/supplements/${id}`, {
+      method: 'DELETE'
+    })
+
+    setSupplements(supplements.filter((supplement) => supplement.id !== id));
   }
 
   return (
@@ -69,7 +81,8 @@ function App() {
       <Header/>
       
       <Routes> 
-        <Route path='/adminPanel' element={<Admin onAdd={addSupplement} />}>
+        <Route path='/adminPanel' element={<Admin allSupplements={supplements}
+         onDelete={deleteTask} onEdit={editSupplement} onAdd={addSupplement} />}>
 
         </Route>
       </Routes>
