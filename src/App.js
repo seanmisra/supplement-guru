@@ -9,6 +9,7 @@ function App() {
 
   const [supplements, setSupplements] = useState([]);
   const [keywords, setKeywords] = useState([]);
+  const [recommendationObj, setRecommendationObj] = useState(null);
 
   useEffect(() => {
     const getSupplements = async () => {
@@ -96,10 +97,25 @@ function App() {
     setSupplements(supplements.filter((supplement) => supplement.id !== id));
   }
 
+  const getRecommendation = (keywords) => {
+    const supplementScores = {};
+
+    supplements.forEach((supplementObj) => {
+      const sharedKeywords = supplementObj.tags.filter(tag => keywords.includes(tag));
+      const score = sharedKeywords.length;
+      supplementScores[supplementObj.name] = score;
+    });
+
+    const recommendation = Object.keys(supplementScores).reduce((a, b) => supplementScores[a] > supplementScores[b] ? a : b);
+    const recommendationObj = supplements.find(supp => supp.name.toLowerCase() === recommendation.toLowerCase())
+
+    setRecommendationObj(recommendationObj);
+  }
+
   return (
     <Router>      
       <Routes> 
-        <Route path='/' exact element={<Home keywords={keywords} />}>
+        <Route path='/' exact element={<Home keywords={keywords} getRecommendation={getRecommendation} recommendationObj={recommendationObj} />}>
         </Route>
 
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}

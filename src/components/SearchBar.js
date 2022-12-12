@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 
 
-const SearchBar = ({keywords}) => {
+const SearchBar = ({keywords, onSubmit}) => {
     const [addedKeywords, setAddedKeywords] = useState([]);
     const [keywordVal, setKeywordVal] = useState('');
 
@@ -22,8 +22,9 @@ const SearchBar = ({keywords}) => {
         setKeywordVal(''); 
     };
 
-    const onSubmit = () => {
-        //
+    const handleSubmit = () => {
+        console.log('handleSubmit');
+        onSubmit(addedKeywords);
     }
     
 
@@ -43,7 +44,7 @@ const SearchBar = ({keywords}) => {
 
             <br/>
             <Button id="add-tag-button" variant="contained" onClick={onAdd}>Add</Button>
-            <Button id="add-submit-button" color="success" variant="contained" onClick={onSubmit}>Submit</Button>
+            <Button id="add-submit-button" color="success" variant="contained" onClick={handleSubmit}>Submit</Button>
             <br/>
             <br/>
 
