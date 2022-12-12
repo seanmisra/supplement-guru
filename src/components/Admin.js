@@ -28,7 +28,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
             return;
         }
 
-        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name === suppNameDelete);
+        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name.toLowerCase() === suppNameDelete.toLowerCase());
  
         if (existingSupplement) {
             onDelete(existingSupplement.id)
@@ -70,7 +70,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
             tags: parsedTags
         }
 
-        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name === suppName)
+        const existingSupplement = allSupplements.find(thisSupp => thisSupp.name.toLowerCase() === suppName.toLowerCase())
 
         if (existingSupplement) {
             suppObj.id = existingSupplement.id
@@ -92,53 +92,55 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
             <h1>
                 Admin Panel
             </h1>
-            <p id="adminHomeLink"><Link to='/'>Back Home</Link></p>
+            <div className='adminContainer'>
+                <p id="adminHomeLink"><Link to='/'>Back Home</Link></p>
 
-            <label htmlFor='adminPassword'>Password: </label> 
-            <input type='password' required id='adminPassword' name='adminPassword'
-                value={adminPassword} onChange={(e) => setAdminPassword(e.target.value) }
-                />
-            
-            <h3>Add/Edit Supplement</h3>
-            <p>If supplement name is existing, then existing entry will be updated</p>
-            <form className='formWrapper' onSubmit={onSubmit}> 
-                <label htmlFor='suppName'>Name: </label> 
-                <input id='suppName' name='suppName'
-                value={suppName} onChange={(e) => setSuppName(e.target.value) }
-                />
-                <br/>
-
-                <label htmlFor='suppDescription'>Description: </label> 
-                <textarea type='textarea' id='suppDescription' name='suppDescription'
-                value={suppDesription} onChange={(e) => setSuppDescription(e.target.value)}
-                />
-                <br/>
-
-                <label htmlFor='suppTags'>Tags: </label> 
-                <input id='suppTags' name='suppTags'
-                value={suppTags} onChange={(e) => setSuppTags(e.target.value)}
-                />
-                <br/>
-
-                <button>Submit</button>
-            </form>  
-
-            <h3>Delete Supplement</h3>
-            <p>If supplement name is found, that entry will be deleted</p>
-            <form className='formWrapper' onSubmit={handleDelete}>
-                <label htmlFor='suppNameDelete'>Name: </label> 
-                    <input id='suppNameDelete' name='suppNameDelete'
-                    value={suppNameDelete} onChange={(e) => setSuppNameDelete(e.target.value) }
+                <label className='adminLabel passwordLabel' htmlFor='adminPassword'>Password: </label> 
+                <input className='adminControl passwordControl' type='password' required id='adminPassword' name='adminPassword'
+                    value={adminPassword} onChange={(e) => setAdminPassword(e.target.value) }
                     />
-                <br/>
-                <button>Submit</button>
-            </form>
 
-            <h3>All Supplements ({allSupplements.length})</h3>
-            <div>
-            {allSupplements.map(thisSupp => (
-                <p>{thisSupp.name}</p>
-            ))}
+                <h3>Add/Edit Supplement</h3>
+                <p>If supplement name is existing, then existing entry will be updated</p>
+                <form className='formWrapper' onSubmit={onSubmit}> 
+                    <label className='adminLabel' htmlFor='suppName'>Name: </label> 
+                    <input className='adminControl' id='suppName' name='suppName'
+                    value={suppName} onChange={(e) => setSuppName(e.target.value) }
+                    />
+                    <br/>
+
+                    <label className='adminLabel' htmlFor='suppDescription'>Description: </label> 
+                    <textarea className='adminControl' type='textarea' id='suppDescription' name='suppDescription'
+                    value={suppDesription} onChange={(e) => setSuppDescription(e.target.value)}
+                    />
+                    <br/>
+
+                    <label className='adminLabel' htmlFor='suppTags'>Tags: </label> 
+                    <input className='adminControl' id='suppTags' name='suppTags'
+                    value={suppTags} onChange={(e) => setSuppTags(e.target.value)}
+                    />
+                    <br/>
+
+                    <button className='adminButton'>Submit</button>
+                </form>  
+
+                <h3>Delete Supplement</h3>
+                <p>If supplement name is found, that entry will be deleted</p>
+                <form className='formWrapper' onSubmit={handleDelete}>
+                    <label className='adminLabel' htmlFor='suppNameDelete'>Name: </label> 
+                        <input className='adminControl' id='suppNameDelete' name='suppNameDelete'
+                        value={suppNameDelete} onChange={(e) => setSuppNameDelete(e.target.value) }
+                        />
+                    <br/>
+                    <button className='adminButton'>Submit</button>
+                </form>
+
+                <h3 id="admin-all-supplements-header">All Supplements ({allSupplements.length})</h3>
+                <ul id="admin-all-supplements-list">
+                {allSupplements.map(thisSupp => (
+                    <li>{thisSupp.name}</li>
+                ))}
+                </ul>
             </div>
         </div>
     )

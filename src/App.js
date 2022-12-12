@@ -77,13 +77,13 @@ function App() {
   }
 
   return (
-    <Router>
-      <Header/>
-      
+    <Router>      
       <Routes> 
+        <Route path='/' exact element={<Header/>}>
+        </Route>
+
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}
          onDelete={deleteTask} onEdit={editSupplement} onAdd={addSupplement} />}>
-
         </Route>
       </Routes>
     </Router>

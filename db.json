@@ -34,6 +34,27 @@
         "better skin"
       ],
       "id": 3
+    },
+    {
+      "name": "Ginkgo Biloba",
+      "tags": [
+        "circulation",
+        "tinnitus",
+        "psychosis",
+        "dementia",
+        "migraines"
+      ],
+      "id": 4
+    },
+    {
+      "name": "Alpha-GPC",
+      "tags": [
+        "nootropic",
+        "memory",
+        "attention",
+        "learning"
+      ],
+      "id": 5
     }
   ]
 }
