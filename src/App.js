@@ -43,7 +43,11 @@ function App() {
   }
 
   const addSupplement = async(supplement) => {
-    const res = await fetch('http://localhost:5000/supplements', {
+    console.log('add supplement');
+    console.log(supplement);
+
+    // update in DB
+    const res = await fetch('http://localhost:8080/api/supplement', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -52,14 +56,13 @@ function App() {
     })
 
     const data = await res.json()
+    //update locally
     setSupplements([...supplements, data])
   }
 
   const editSupplement = async(supplement) => {
-    console.log('supplement');
-    console.log(supplement);
-    // update in memory
-    const res = await fetch(`http://localhost:5000/supplements/${supplement.id}`, {
+    // update in DB
+    const res = await fetch('http://localhost:8080/api/supplement', {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'
@@ -72,19 +75,17 @@ function App() {
     // update locally
     setSupplements(
       supplements.map((thisSupp) => 
-        thisSupp.id === supplement.id ? supplement : thisSupp
+        thisSupp.name === supplement.name ? supplement : thisSupp
       )
     )
   }
 
-  const deleteTask = async (id) => {
-    console.log('deleteTask');
-    console.log(id);
-    await fetch(`http://localhost:5000/supplements/${id}`, {
+  const deleteSupplement = async (name) => {
+    await fetch(`http://localhost:8080/api/supplement/${name}`, {
       method: 'DELETE'
     })
 
-    setSupplements(supplements.filter((supplement) => supplement.id !== id));
+    setSupplements(supplements.filter((supplement) => supplement.name !== name));
   }
 
   const getRecommendation = (keywords) => {
@@ -118,7 +119,7 @@ function App() {
         </Route>
 
         <Route path='/adminPanel' element={<Admin allSupplements={supplements}
-         onDelete={deleteTask} onEdit={editSupplement} onAdd={addSupplement} />}>
+         onDelete={deleteSupplement} onEdit={editSupplement} onAdd={addSupplement} />}>
         </Route>
       </Routes>
     </Router>

@@ -31,7 +31,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
         const existingSupplement = allSupplements.find(thisSupp => thisSupp.name.toLowerCase() === suppNameDelete.toLowerCase());
  
         if (existingSupplement) {
-            onDelete(existingSupplement.id)
+            onDelete(existingSupplement.name)
             alert('Successfully deleted ' + suppNameDelete);
             setSuppNameDelete('');
         } else {
@@ -66,7 +66,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
 
         const suppObj = {
             name: suppName,
-            description: setSuppDescription,
+            description: suppDesription,
             tags: parsedTags
         }
 
