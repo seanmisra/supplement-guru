@@ -15,7 +15,7 @@ const SearchBar = ({keywords, onSubmit, addHandler, deleteHandler}) => {
         if (keywordVal === '') { return; }
 
         if (addedKeywords.length >= 7) {
-            alert('Cannot add more than 7 keywords!');
+            alert('Cannot add more than 7 tags!');
             return;
         }
 

@@ -5,8 +5,10 @@ import Recommendation from './Recommendation';
 
 const Home = ({keywords, getRecommendation, recommendationObj, addHandler, deleteHandler}) => {
     const onSubmit = (keywords) => {
-        console.log('submitted keywords');
-        console.log(keywords);
+        if (keywords.length === 0) {
+            alert('At least one tag is required!');
+            return;
+        }
         getRecommendation(keywords)
     }
     

@@ -12,7 +12,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
 
     const validatePassword = () => {
         const adminPasswordVal = process.env.REACT_APP_ADMIN_UPDATE_PASSWORD;
-        return adminPassword === adminPasswordVal;
+        return adminPassword && adminPassword.length > 4 && adminPassword === adminPasswordVal;
     }
 
     const handleDelete = (e) => {
@@ -57,7 +57,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
             return;
         }
 
-        const parsedTags = suppTags.split(',');
+        const parsedTags = suppTags.trim().replaceAll(', ', ',').split(',');
 
         if (parsedTags.length < 1) {
             alert('At least one tag is required in a comma-separated format');
