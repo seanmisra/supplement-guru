@@ -31,7 +31,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
         const existingSupplement = allSupplements.find(thisSupp => thisSupp.name.toLowerCase() === suppNameDelete.toLowerCase());
  
         if (existingSupplement) {
-            onDelete(existingSupplement.name)
+            onDelete(existingSupplement._id)
             alert('Successfully deleted ' + suppNameDelete);
             setSuppNameDelete('');
         } else {
@@ -73,7 +73,7 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
         const existingSupplement = allSupplements.find(thisSupp => thisSupp.name.toLowerCase() === suppName.toLowerCase())
 
         if (existingSupplement) {
-            suppObj.id = existingSupplement.id
+            suppObj._id = existingSupplement._id
             onEdit(suppObj)
             alert('Successfully EDITED ' + suppName);
         } else {

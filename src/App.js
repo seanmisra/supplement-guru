@@ -80,12 +80,12 @@ function App() {
     )
   }
 
-  const deleteSupplement = async (name) => {
-    await fetch(`http://localhost:8080/api/supplement/${name}`, {
+  const deleteSupplement = async (id) => {
+    await fetch(`http://localhost:8080/api/supplement/${id}`, {
       method: 'DELETE'
     })
 
-    setSupplements(supplements.filter((supplement) => supplement.name !== name));
+    setSupplements(supplements.filter((supplement) => supplement._id !== id));
   }
 
   const getRecommendation = (keywords) => {
