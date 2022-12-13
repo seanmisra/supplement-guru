@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url('../public/supplement_background.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 code {
@@ -12,8 +17,17 @@ code {
     monospace;
 }
 
-.headerWrapper, .adminWrapper {
+.adminWrapper {
   margin-left: 10px;
+}
+
+.headerWrapper {
+  text-align: center;
+}
+
+#header-line {
+  /* font-weight: bold; */
+  font-size: 20px;
 }
 
 .adminLabel {
@@ -58,17 +72,62 @@ code {
 }
 
 #add-submit-button, #add-tag-button {
-  width: 90px;
+  width: 120px;
 }
 
 .search-bar-wrapper, .recommendation-wrapper {
-  margin-left: 5px;
+  /* margin-left: 5px; */
+  /* text-align: center; */
 }
 
 .search-bar-wrapper {
   margin-top: 40px;
+  text-align: center;
 }
 
 .recommendation-wrapper {
-  margin-top: 50px;
+  width: 50%;
+  margin: 50px auto;
+  /* margin-top: 50px; */
+  text-align: center;
+}
+
+.MuiCardContent-root {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.MuiAutocomplete-root {
+  width: 600px !important;
+  display: block;
+  margin : 0 auto;
+}
+
+.MuiInputBase-root {
+  background-color: white;
+}
+
+.keyword-chip-stack {
+  display: block !important;
+}
+
+.MuiChip-root {
+  background-color: rgba(220, 220, 220) !important;
+}
+
+.MuiChip-deleteIcon {
+  color: rgba(150, 150, 150) !important;
+}
+
+.MuiChip-deleteIcon:hover {
+  color: rgba(110, 110, 110) !important;
+}
+
+#recommendation-header {
+  margin-top: 10px !important; 
+}
+
+#recommendation-text {
+  margin-bottom: 10px !important; 
+  margin-top: 10px !important; 
 }

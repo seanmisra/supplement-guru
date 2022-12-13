@@ -9,12 +9,15 @@ const Recommendation = ({recommendationObj}) => {
         <div className='recommendation-wrapper'>
             {recommendationObj !== null && 
                 <div class='recommendation-container'>
-                    {/* <Card sx={{ minWidth: 275 }}>
-                        <CardContent> */}
-                            <h3>Recommendation</h3>
-                            <h4>{recommendationObj.name}</h4>
-                        {/* </CardContent>
-                    </Card> */}
+                    <Card sx={{ 
+                        minWidth: 275,
+                        maxWidth: 700,
+                         }}>
+                        <CardContent>
+                            {/* <h5 id="recommendation-header">Recommendation</h5> */}
+                            <h3 id="recommendation-text">{recommendationObj.name}</h3>
+                        </CardContent>
+                    </Card>
                 </div>
             }
         </div>

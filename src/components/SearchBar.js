@@ -55,7 +55,7 @@ const SearchBar = ({keywords, onSubmit, addHandler, deleteHandler}) => {
             <br/>
             <br/>
 
-            <Stack direction="row" spacing={1}>
+            <Stack className='keyword-chip-stack' direction="row" spacing={1}>
                 {addedKeywords.map((tag, index) => (
                     <Chip key={index} label={tag} onDelete={() => handleDelete(tag)} />
                 ))}      
