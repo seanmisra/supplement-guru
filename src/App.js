@@ -12,40 +12,34 @@ function App() {
   const [recommendationObj, setRecommendationObj] = useState(null);
 
   useEffect(() => {
-    const getSupplements = async () => {
+    const getSupplementData = async () => {
       const supplementsFromServer = await fetchSupplements()
       setSupplements(supplementsFromServer);
-      fetchKeywords(supplementsFromServer);
+
+      const keywordsFromServer = await fetchKeywords();
+      setKeywords(keywordsFromServer);
     }
 
-    getSupplements();
+    getSupplementData();
   }, [])
 
   const fetchSupplements = async () => {
-    const res = await fetch('http://localhost:5000/supplements')
-    const data = await res.json()
-
+    const res = await fetch('http://localhost:8080/api/allSupplements');
+    const data = await res.json();
     return data;
   }
 
-  const fetchSupplement = async (id) => {
-    const res = await fetch(`http://localhost:5000/supplements/${id}`)
-    const data = await res.json()
+  // const fetchSupplement = async (id) => {
+  //   const res = await fetch(`http://localhost:5000/supplements/${id}`)
+  //   const data = await res.json()
 
+  //   return data;
+  // } 
+
+  const fetchKeywords = async () => {
+    const res = await fetch('http://localhost:8080/api/allKeywords');
+    const data = await res.json();
     return data;
-  } 
-
-  const fetchKeywords = async (supplementsFromServer) => {
-    const keywords = [];
-    if (supplementsFromServer) {
-      supplementsFromServer.forEach(thisSupp => {
-        keywords.push(...thisSupp.tags)
-      })
-  
-      let uniqueKeywords = [...new Set(keywords)]
-      uniqueKeywords.sort()
-      setKeywords(uniqueKeywords);
-    }
   }
 
   const addSupplement = async(supplement) => {
