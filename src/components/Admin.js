@@ -87,6 +87,35 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
 
     }
 
+    const handleExport = () => {
+        const formattedSupplements = [];
+
+        allSupplements.forEach(suppObj => {
+          formattedSupplements.push({
+              id: suppObj._id,
+              name: suppObj.name,
+              description: suppObj.description,
+              tags: suppObj.tags
+          })  
+        });
+
+        let json = JSON.stringify(formattedSupplements);
+        let fileName = 'allSupplements.json';
+ 
+        let blob = new Blob([json], { type: 'application/json' });
+        let link = document.createElement("a");
+        if (link.download !== undefined) {
+            
+            let url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
     return(
         <div className='adminWrapper'> 
             <h1>
@@ -141,6 +170,8 @@ const Admin = ({onAdd, onDelete, onEdit, allSupplements}) => {
                     <li>{thisSupp.name}</li>
                 ))}
                 </ul>
+
+                <button onClick={handleExport} id="export-button">Export all data to JSON</button>
             </div>
         </div>
     )
