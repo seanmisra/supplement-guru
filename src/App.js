@@ -23,8 +23,18 @@ function App() {
     getSupplementData();
   }, [])
 
+  const getRoute = (route) => {
+    let url = '';
+    if (process.env.REACT_APP_PROD_ENV.toLowerCase() === 'false') {
+      url = 'http://localhost:8080';
+    }
+    url += route;
+    return url;
+  }
+
   const fetchSupplements = async () => {
-    const res = await fetch('http://localhost:8080/api/allSupplements');
+    const url = getRoute('/api/allSupplements');
+    const res = await fetch(url);
     const data = await res.json();
     return data;
   }
@@ -37,17 +47,16 @@ function App() {
   // } 
 
   const fetchKeywords = async () => {
-    const res = await fetch('http://localhost:8080/api/allKeywords');
+    const url = getRoute('/api/allKeywords');
+    const res = await fetch(url);
     const data = await res.json();
     return data;
   }
 
   const addSupplement = async(supplement) => {
-    console.log('add supplement');
-    console.log(supplement);
-
     // update in DB
-    const res = await fetch('http://localhost:8080/api/supplement', {
+    const url = getRoute('/api/supplement');
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -62,7 +71,8 @@ function App() {
 
   const editSupplement = async(supplement) => {
     // update in DB
-    const res = await fetch('http://localhost:8080/api/supplement', {
+    const url = getRoute('/api/supplement');
+    const res = await fetch(url, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'
@@ -81,7 +91,8 @@ function App() {
   }
 
   const deleteSupplement = async (id) => {
-    await fetch(`http://localhost:8080/api/supplement/${id}`, {
+    const url = getRoute(`/api/supplement/${id}`);
+    await fetch(url, {
       method: 'DELETE'
     })
 
