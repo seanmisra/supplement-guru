@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Recommendation from './Recommendation';
+import Footer from './Footer';
 
 const Home = ({keywords, getRecommendation, recommendationObj, addHandler, deleteHandler}) => {
     const onSubmit = (keywords) => {
@@ -17,6 +18,7 @@ const Home = ({keywords, getRecommendation, recommendationObj, addHandler, delet
             <Header></Header>
             <SearchBar addHandler={addHandler} deleteHandler={deleteHandler} onSubmit={onSubmit} keywords={keywords}></SearchBar>
             <Recommendation recommendationObj={recommendationObj}></Recommendation>
+            {recommendationObj && <Footer></Footer>}
         </>
     )
 }
